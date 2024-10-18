@@ -15,7 +15,9 @@ const CarrilSchema = new mongoose.Schema({
     tipo: String,
     nombre: String,
     suelo: String,
-    distancia: Number
+    distancia: Number,
+    provincia: String,
+    ciudad: String
 });
 
 // Create mongoose model
@@ -45,6 +47,8 @@ app.get('/uploadData', async (req, res) => {
             nombre: carril["nombre"],
             suelo: carril["suelo"],
             distancia: carril["distancia"],
+            provincia: carril["provincia"],
+            ciudad: carril["ciudad"]
         }));
 
         // Insert all the data into the database
