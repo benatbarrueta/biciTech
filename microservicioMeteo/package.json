@@ -1,5 +1,5 @@
 {
-  "name": "microserviciometeo",
+  "name": "microservicio_meteo",
   "version": "1.0.0",
   "description": "Microservice that controls the meteo",
   "main": "main.js",
@@ -17,6 +17,7 @@
   "dependencies": {
     "config": "^3.3.12",
     "express": "^4.21.1",
+    "microservicio_meteo": "file:",
     "mongo": "^0.1.0",
     "mongoose": "^8.7.2",
     "nodemon": "^3.1.7"
