@@ -133,26 +133,29 @@ app.get('/getDataName/:name', async (req, res) => {
     }
 });
 
-// Configure Swagger
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
+// Get the data from the database by province
+app.get('/getDataProvince/:province', async (req, res) => {
+    try {
+        const carriles = await Carril.find({provincia: req.params.province});
 
-const swaggerOptions = {
-  swaggerDefinition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'API de Viajes',
-      version: '1.0.0',
-      description: 'Cicling road api description',
-    },
-  },
-  apis: [__filename], // Ruta al archivo actual (main.js)
-};
+        console.log(carriles.length + ' elements retrieved successfully');
+        res.json(carriles);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
-const swaggerSpec = swaggerJsdoc(swaggerOptions);
+// Get the data from the database by city
+app.get('/getDataCity/:city', async (req, res) => {
+    try {
+        const carriles = await Carril.find({ciudad: req.params.city});
 
-// Add Swagger to Express
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+        console.log(carriles.length + ' elements retrieved successfully');
+        res.json(carriles);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 app.listen(port, () => {
     console.log('Server listening on port ' + port);
