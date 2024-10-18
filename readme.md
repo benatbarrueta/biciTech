@@ -1,43 +1,43 @@
 # BICITECH 🚴🏼‍♀️
-Bicitech es un proyecto que reune la red de carriles bici de España para mostrarselo a sus usuarios. El usuario podrá iniciar sesión y guardarse distintos carriles. Dentro de cada carril bici se muestra el tiempo que hace en el lugar en el momento instantaneo.
+Bicitech is a project that brings together the network of bike lanes in Spain to show it to its users. The user can log in and save different lanes. Within each bike lane, the current weather at the location is displayed.
 
-## MICROSERVICIOS ⚙️
+## MICROSERVICES ⚙️
 
-### 1. MICROSERVICIO CARRILES BICI 🛣️
-Este microservicio está desarollado con Node.js y utiliza una base de datos mongoDB. Es el encargado de gestionar todas las acciones que se realizan con los carriles bici.
+### 1. BIKE LANES MICROSERVICE 🛣️
+This microservice is developed with Node.js and uses a MongoDB database. It is responsible for managing all actions performed with the bike lanes.
 
-#### INSTALACIÓN ⚙️
-Para poder ejecutarlo se deberá descargar o clonar el repositorio y tener instalado mongo y node.
+#### INSTALLATION ⚙️
+To run it, you need to download or clone the repository and have MongoDB and Node.js installed.
 
-Hay que descargar las siguientes dependencias: 
+You need to download the following dependencies:
 
-**config, express, fs, mongodb, mongoose, nodemon, swagger-jsdoc y swagger-ui-express** 
+**config, express, fs, mongodb, mongoose, nodemon, swagger-jsdoc, and swagger-ui-express**
 
-Para ello ejecutaremos el siguiente comando
+To do this, run the following command:
 
-    npm install config express fs mongodb mongoose nodemon swagger-jsdoc swagger-ui-express 
+    npm install config express fs mongodb mongoose nodemon swagger-jsdoc swagger-ui-express
 
-#### EJECUCIÓN ▶️
-Para ejecutar el proyecto bastará con ejecutar el siguiente comando:
-    
+#### EXECUTION ▶️
+To run the project, simply execute the following command:
+
     npm start
 
-### 2. MICROSERVICIO METEOROLOGÍA 🌤️
-Este microservicio esta desarrollado en node.js y sirve para poder obtener los datos del tiempo que hace en cada carril bici. Para ello se comunica con la API de https://openweathermap.org/current.
+### 2. WEATHER MICROSERVICE 🌤️
+This microservice is developed in Node.js and is used to obtain the weather data for each bike lane. It communicates with the
 
-#### INSTALACIÓN ⚙️
-Para poder ejecutarlo se deberá descargar o clonar el repositorio y tener instalado node.
+#### INSTALLATION ⚙️
+To run it, you need to download or clone the repository and have Node.js installed.
 
-Hay que descargar las siguientes dependencias:
+You need to download the following dependencies:
 
-**axios, config, dotenv, express, mongo, mongoose, nodemon y openweather**
+**axios, config, dotenv, express, mongo, mongoose, nodemon, and openweather**
 
-Para ello ejecutaremos el siguiente comando
+To do this, run the following command:
 
     npm install axios config dotenv express mongo mongoose nodemon openweather 
 
-#### EJECUCIÓN ▶️
-Para ejecutar el proyecto bastará con ejecutar el siguiente comando:
+#### EXECUTION ▶️
+To run the project, simply execute the following command:
     
     npm start
 

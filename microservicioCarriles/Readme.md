@@ -1,18 +1,18 @@
-# MICROSERVICIO CARRILES BICI 🛣️
-Este microservicio está desarollado con Node.js y utiliza una base de datos mongoDB. Es el encargado de gestionar todas las acciones que se realizan con los carriles bici.
+# BIKE LANES MICROSERVICE 🛣️
+This microservice is developed with Node.js and uses a MongoDB database. It is responsible for managing all actions performed with the bike lanes.
 
-#### INSTALACIÓN ⚙️
-Para poder ejecutarlo se deberá descargar o clonar el repositorio y tener instalado mongo y node.
+#### INSTALLATION ⚙️
+To run it, you need to download or clone the repository and have MongoDB and Node.js installed.
 
-Hay que descargar las siguientes dependencias: 
+You need to download the following dependencies:
 
-**config, express, fs, mongodb, mongoose, nodemon, swagger-jsdoc y swagger-ui-express** 
+**config, express, fs, mongodb, mongoose, nodemon, swagger-jsdoc, and swagger-ui-express**
 
-Para ello ejecutaremos el siguiente comando
+To do this, run the following command:
 
-    npm install config express fs mongodb mongoose nodemon swagger-jsdoc swagger-ui-express 
+    npm install config express fs mongodb mongoose nodemon swagger-jsdoc swagger-ui-express
 
-#### EJECUCIÓN ▶️
-Para ejecutar el proyecto bastará con ejecutar el siguiente comando:
-    
+#### EXECUTION ▶️
+To run the project, simply execute the following command:
+
     npm start
