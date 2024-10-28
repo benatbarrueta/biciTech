@@ -27,7 +27,7 @@ const Carril = mongoose.model('Carril', CarrilSchema);
 app.get('/roads/uploadData', async (req, res) => {
     try {
         // Read the data from the file
-        const data = fs.readFileSync('./data/viasCiclistasEspana.json', 'utf8');
+        const data = fs.readFileSync('./data/viasCiclistas.json', 'utf8');
         const jsonData = JSON.parse(data);
 
         const tripsArray = jsonData["Cicling road details dataset"];
