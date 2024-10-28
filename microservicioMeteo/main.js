@@ -5,7 +5,7 @@ const port = 2000;
 const axios = require('axios');
 
 // Get the weather of a city
-app.get('/getWeather/:city', async (req, res) => {
+app.get('/weather/city/:city', async (req, res) => {
     try {
         const apiKey = process.env.OPENWEATHER_API_KEY;
         const city = req.params.city;  // You can change the city as desired

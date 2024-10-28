@@ -24,7 +24,7 @@ const CarrilSchema = new mongoose.Schema({
 const Carril = mongoose.model('Carril', CarrilSchema);
 
 // Upload all the data into the database
-app.get('/uploadData', async (req, res) => {
+app.get('/roads/uploadData', async (req, res) => {
     try {
         // Read the data from the file
         const data = fs.readFileSync('./data/viasCiclistasEspana.json', 'utf8');
@@ -62,7 +62,7 @@ app.get('/uploadData', async (req, res) => {
 });
 
 // Get all the data from the database
-app.get('/getData', async (req, res) => {
+app.get('/roads/getAll', async (req, res) => {
     try {
         const carriles = await Carril.find();
         
@@ -74,7 +74,7 @@ app.get('/getData', async (req, res) => {
 });
 
 // Get the data from the database by type
-app.get('/getDataType/:type', async (req, res) => {
+app.get('/roads/type/:type', async (req, res) => {
     try {
         const carriles = await Carril.find({tipo: req.params.type});
 
@@ -86,7 +86,7 @@ app.get('/getDataType/:type', async (req, res) => {
 });
 
 // Get the data from the database by surface
-app.get('/getDataSurface/:surface', async (req, res) => {
+app.get('/roads/surface/:surface', async (req, res) => {
     try {
         const carriles = await Carril.find({suelo: req.params.surface});
 
@@ -98,7 +98,7 @@ app.get('/getDataSurface/:surface', async (req, res) => {
 });
 
 // Get the data from the database by distance
-app.get('/getDataDistance/:distance', async (req, res) => {
+app.get('/roads/distance/:distance', async (req, res) => {
     try {
         const carriles = await Carril.find({distancia: {$lt: req.params.distance}});
 
@@ -110,7 +110,7 @@ app.get('/getDataDistance/:distance', async (req, res) => {
 });
 
 // Get the data from the database by maximum speed
-app.get('/getDataSpeed/:speed', async (req, res) => {
+app.get('/roads/speed/:speed', async (req, res) => {
     try {
         const carriles = await Carril.find({velocidad_max: {$lt: req.params.speed}});
 
@@ -122,7 +122,7 @@ app.get('/getDataSpeed/:speed', async (req, res) => {
 });
 
 // Get the data from the database by name
-app.get('/getDataName/:name', async (req, res) => {
+app.get('/roads/name/:name', async (req, res) => {
     try {
         const carriles = await Carril.find({nombre: req.params.name});
 
@@ -134,7 +134,7 @@ app.get('/getDataName/:name', async (req, res) => {
 });
 
 // Get the data from the database by province
-app.get('/getDataProvince/:province', async (req, res) => {
+app.get('/roads/province/:province', async (req, res) => {
     try {
         const carriles = await Carril.find({provincia: req.params.province});
 
@@ -146,7 +146,7 @@ app.get('/getDataProvince/:province', async (req, res) => {
 });
 
 // Get the data from the database by city
-app.get('/getDataCity/:city', async (req, res) => {
+app.get('/roads/city/:city', async (req, res) => {
     try {
         const carriles = await Carril.find({ciudad: req.params.city});
 
