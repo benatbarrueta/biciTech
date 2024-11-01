@@ -3,7 +3,7 @@ const app = express();
 const fs = require('fs');
 const connectDB = require('./config/db');
 const mongoose = require('mongoose');
-const port = 3000;
+const port = 6000;
 
 // Connect to MongoDB
 connectDB();

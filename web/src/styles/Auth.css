@@ -65,4 +65,13 @@
   .auth-container button:hover {
     background-color: #555; 
   }
+
+  .auth-link {
+    text-decoration: none;
+    color: blue;
+  }
+
+  .auth-link:hover {
+    text-decoration: underline;
+  }
   

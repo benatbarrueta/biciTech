@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../../styles/Auth.css';
 import { useNavigate } from 'react-router-dom';
 
-const Register = ({ onRegister }) => {
+const Register = () => {
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -20,7 +20,6 @@ const Register = ({ onRegister }) => {
             const response = await axios.post('/api/auth/register', userData);
 
             if (response.status === 200) {
-                onRegister();
                 navigate('/');
             }
         } catch (error) {
@@ -56,7 +55,7 @@ const Register = ({ onRegister }) => {
                 <button className="auth-button" onClick={register}>Registrarse</button>
                 <br/>
                 <br/>
-                <a href="/" className="auth-button">Ya tienes una cuenta?</a>
+                <a href="/" className="auth-link">Ya tienes una cuenta? Iniciar sesión</a>
             </div>
         </div>
     );

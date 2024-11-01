@@ -24,7 +24,7 @@ function App() {
         {/* Usar el componente Routes */}
         <Routes>
           <Route path="/" element={<Auth onLogin={handleLogin} />} />
-          <Route path="/register" element={<Register on />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/home" element={isAuthenticated ? <Home /> : <Navigate to="/" />} />
         </Routes>
       </div>

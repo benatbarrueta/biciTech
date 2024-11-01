@@ -1,5 +1,6 @@
 const http = require('http');
 const httpProxy = require('http-proxy');
+const port = 4000
 
 const proxy = httpProxy.createProxyServer({});
 const server = http.createServer((req, res) => {
@@ -8,8 +9,8 @@ const server = http.createServer((req, res) => {
 
     if (req.url.startsWith('/roads')) {
 
-        console.log('Redirecting request to /roads to port 3000');
-        proxy.web(req, res, { target: 'http://localhost:3000' });
+        console.log('Redirecting request to /roads to port 6000');
+        proxy.web(req, res, { target: 'http://localhost:6000' });
 
     } else if (req.url.startsWith('/weather')) {
         // Redirige las solicitudes que comienzan con /travel al microservicio de viajes (puerto 2000)
@@ -27,6 +28,6 @@ const server = http.createServer((req, res) => {
     }
 });
 
-server.listen(5000, () => {
-    console.log('Gateway running on port 5000');
+server.listen(port, () => {
+    console.log('Gateway running on port ' + port);
 });

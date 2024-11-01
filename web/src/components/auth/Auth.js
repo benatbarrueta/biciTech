@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useToken } from './tokenContext';
 
 const Auth = ({ onLogin }) => {
-    const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();

@@ -1,0 +1,74 @@
+
+
+.header {
+    position: relative;
+    background-image: url('fondoApp.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 15vh;
+    display: inline-block;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .header h1 {
+    font-size: 3.5em;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    margin: 3vh;
+    margin-left: 70vh;
+  }
+  
+  .header p {
+    font-size: 1.5em;
+  }
+  
+  .menu-container {
+    margin: 0;
+    display: inline-block;
+    margin-left: 30vh;
+  }
+  
+  .menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .menu a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2em;
+    margin: 0 20px;
+  }
+  
+  .menu a:hover {
+    color: #ffcc00;
+  }
+  
+  .separator {
+    width: 50%;
+    height: 1px;
+    background-color: #fff;
+    margin: 10px auto;
+  }
+  
+  .profile-image {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .profile-image img {
+    color: #fff;
+    max-width: 100px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+  }
+  
