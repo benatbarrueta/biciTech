@@ -92,6 +92,22 @@ async def register(user_data: User):
     
     return {"message": "User registered successfully"}
 
+# Function to get the current user
+async def getCurrentUser(token: str = Depends(oauth2_scheme)):
+    try:
+        payload = jwt.decode(token, os.getenv("SECRET_KEY"), algorithms=["HS256"])
+        username = payload.get("sub")
+        if username is None:
+            raise HTTPException(status_code=401, detail="Credencial inválida")
+        return username
+    except jwt.PyJWTError:
+        raise HTTPException(status_code=401, detail="Credencial inválida")
+    
+# Route to get the current user
+@app.get("/auth/users/me")
+async def read_users_me(current_user: str = Depends(getCurrentUser)):
+    return {"username": current_user}
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="localhost", port=8000)
