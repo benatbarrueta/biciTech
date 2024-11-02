@@ -10,7 +10,7 @@ connectDB();
 
 // Define schema
 const CarrilSchema = new mongoose.Schema({
-    id: Number,
+    id: String,
     velocidad_max: Number,
     tipo: String,
     nombre: String,
@@ -68,6 +68,23 @@ app.get('/roads/getAll', async (req, res) => {
         
         console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Get the data from the database by id
+app.get('/roads/:roadID', async (req, res) => {
+    try {
+        console.log(typeof req.params.roadID)
+        const carril = await Carril.findOne({ id: req.params.roadID });
+
+        if (!carril) {
+            console.log("No element found");
+            return res.status(404).json({ error: "Carril no encontrado" });
+        }
+
+        res.json(carril);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
