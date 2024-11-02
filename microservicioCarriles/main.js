@@ -74,10 +74,11 @@ app.get('/roads/getAll', async (req, res) => {
 });
 
 // Get the data from the database by id
-app.get('/roads/:roadID', async (req, res) => {
+app.get('/roads/id/:roadID', async (req, res) => {
     try {
-        console.log(typeof req.params.roadID)
+        console.log(req.params);
         const carril = await Carril.findOne({ id: req.params.roadID });
+
 
         if (!carril) {
             console.log("No element found");
@@ -85,6 +86,7 @@ app.get('/roads/:roadID', async (req, res) => {
         }
 
         res.json(carril);
+        console.log('Element retrieved successfully');
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

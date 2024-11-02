@@ -6,25 +6,38 @@ import '../../styles/RoadDetail.css';
 
 const RoadDetail = () => {
     const { RoadID } = useParams();
-    //const [roadDetails, setRoadDetails] = useState(null);
+    const [roadDetails, setRoadDetails] = useState(null);
     //const [isFavorite, setIsFavorite] = useState(false);
     //const { token } = useToken(); // Get the token from the context
 
     useEffect(() => {
-        axios.get(`/api/roads/${RoadID}`, {
+        axios.get(`/api/roads/id/${RoadID}`, {
             /*headers: {
                 Authorization: `Bearer ${token}`, // Add the token as a header
             },*/
         })
             .then(response => {
-                //setRoadDetails(response.data);
-                console.log(response.data);
+                setRoadDetails(response.data);
+
             })
     },[RoadID]);
 
     return (
         <div className="centered-content">
-            <h2>DETALLES DEL CARRIL</h2>
+            <h2>DETALLES DEL CARRIL {RoadID}</h2>
+            {roadDetails ? (
+                <div className="road-details">
+                    <p><strong>Nombre:</strong> {roadDetails.nombre}</p>
+                    <p><strong>Superficie:</strong> {roadDetails.suelo}</p>
+                    <p><strong>Tipo:</strong> {roadDetails.tipo}</p>
+                    <p><strong>Distancia:</strong> {roadDetails.distancia}</p>
+                    <p><strong>Velocidad máxima:</strong> {roadDetails.velocidad_max}</p>
+                    <p><strong>Ciudad:</strong> {roadDetails.ciudad}</p>
+                    <p><strong>Provincia:</strong> {roadDetails.provincia}</p>
+                </div>
+            ) : (
+                <p>Cargando...</p>
+            )}
         </div>
     );
 }
