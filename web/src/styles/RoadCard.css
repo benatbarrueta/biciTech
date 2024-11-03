@@ -1,25 +1,40 @@
 
-.trip-card {
+.road-card {
     display: inline-block;
     width: 250px;
+    height: 300px;
     margin: 10px;
     background-color: rgba(255, 255, 255, 0.8); 
-    border: 1px solid #E5E69E;
     border-radius: 10px; 
     padding: 15px; 
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    color: black;
   }
   
-  .trip-card img {
+  .road-card img {
     max-width: 100%; 
     border: 1px solid #ddd;
     border-radius: 8px; 
   }
   
-  .trip-card h3 {
+  .road-card h3 {
     margin-top: 10px;
-    font-size: 1.4em; 
+    font-size: 1em; 
     color: #333; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
+
+  .details-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #5fa64b;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+.details-button:hover {
+    background-color: lightseagreen;
+}

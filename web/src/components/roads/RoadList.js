@@ -25,11 +25,29 @@ const RoadList = () => {
         });
     }, []);
     
+    const [showAll, setShowAll] = useState(false);
+
+    const handleShowAll = () => {
+        setShowAll(true);
+    };
+
     return (
         <div>
-        {roads.map((road) => (
-            <RoadCard key={road.id} id={road.id}  />
-        ))}
+            {roads.slice(0, showAll ? roads.length : 12).map((road) => (
+                <RoadCard key={road.roadID} road={road} />
+            ))}
+            {!showAll && roads.length > 20 && (
+                <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                    <button 
+                        onClick={handleShowAll} 
+                        style={{ fontSize: '1.2em', cursor: 'pointer', backgroundColor:'#5fa64b' }}
+                        onMouseOver={(e) => e.target.style.backgroundColor = 'lightseagreen'}
+                        onMouseOut={(e) => e.target.style.backgroundColor = ''}
+                    >
+                        Ver más
+                    </button>
+                </div>
+            )}
         </div>
     );
 };

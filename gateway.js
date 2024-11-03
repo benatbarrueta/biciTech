@@ -9,7 +9,8 @@ const server = http.createServer((req, res) => {
 
     if (req.url.startsWith('/roads')) {
 
-        console.log(req.url);
+        console.log('Redirecting request to /roads to port 6000');
+        console.log('Request URL:', req.url);
         proxy.web(req, res, { target: 'http://localhost:6000' });
 
     } else if (req.url.startsWith('/weather')) {

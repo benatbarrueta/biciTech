@@ -8,6 +8,7 @@ const Header = () => {
       <h1>Bici Tech</h1>
       <div className="menu-container">
         <nav className="menu">
+          <Link to="/favorites">Favoritos</Link>
           <Link to="/roads">Carriles</Link>
           <Link to="/perfil">Perfil</Link>
         </nav>
