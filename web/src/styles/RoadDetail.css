@@ -4,11 +4,12 @@
     flex-direction: row;
     justify-content: right;
     align-items: flex-start;
-    background-color: #D2A679; /* Fondo gris claro */
-    color: #333; /* Texto de color oscuro */
+    background-color: #D2A679;
+    color: #333;
     padding: 20px;
     text-align: center;
-    gap: 75px;
+    gap: 0px;
+    height: 500px;
   }
   
   .container {
@@ -22,14 +23,27 @@
     text-align: left;
   }
 
+  .container-img img{
+    width: 400px;
+    margin-top: 30px;
+    border-radius: 5px;
+  }
+
   .container-head {
     padding: 10px;
     border-radius: 8px;
     margin-right: 100px;
   }
 
+  .container-img {
+    width: 350px;
+    margin-top: 50px;
+    margin-left: 150px;
+    border-radius: 5px;
+  }
+
   .container-right {
-    margin-top: 75px;
+    margin-top: 62.5px;
   }
   
   h2 {

@@ -29,7 +29,7 @@ const Register = () => {
 
     return (
         <div className="auth-container">
-            <img src={require('../../styles/logo.png')} alt="Bici Tech" />
+            <img src={require('../../styles/images/logo.png')} alt="Bici Tech" />
             <h1 className="auth-title"> </h1>
             <div className="auth-input-container">
                 <input

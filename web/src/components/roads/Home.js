@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/Home.css';
-import logo from '../../styles/logo.png';
+import logo from '../../styles/images/logo.png';
 
 const Home = () => (
   <main className="home-container" role="main">

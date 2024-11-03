@@ -50,16 +50,37 @@ const RoadDetail = () => {
     return (
         <div className="road-detail">
             <div className="container-head">
+                {road && (
+                    <div class="container-img">
+                        {(() => {
+                            if (road.suelo === 'grava') {
+                                return <img src={require('../../styles/images/viaGrava.jpg')} alt="Carril de grava" />;
+                            } else if (road.suelo === 'tierra') {
+                                return <img src={require('../../styles/images/viaTierra.jpg')} alt="Carril de tierra" />;
+                            } else if (road.suelo === 'mixto') {
+                                return <img src={require('../../styles/images/viaMixta.jpg')} alt="Carril mixto" />;
+                            } else if (road.suelo === 'asfalto') {
+                                return <img src={require('../../styles/images/viaAsfalto.jpg')} alt="Carril de asfalto" />;
+                            } else if (road.suelo === 'hormigón') {
+                                return <img src={require('../../styles/images/viaHormigon.jpg')} alt="Carril de hormigón" />;
+                            } else {
+                                return <p>Tipo de carril desconocido.</p>;
+                            }
+                        })()}
+                    </div>
+                )}
+            </div>
+            <div className="container-head">
                 <h2>Detalles del carril</h2>
                 {road ? (
                     <div class='container'>
                         <h3>{road.name}</h3>
                         <p><strong>Tipo:</strong> {road.tipo}</p>
-                        <p><strong>Distancia:</strong> {road.distancia}</p>
+                        <p><strong>Distancia:</strong> {road.distancia} km</p>
                         <p><strong>Superficie:</strong> {road.suelo}</p>
                         <p><strong>Provincia:</strong> {road.provincia}</p>
                         <p><strong>Ciudad:</strong> {road.ciudad}</p>
-                        <p><strong>Velocidad máxima:</strong> {road.velocidad_max}</p>
+                        <p><strong>Velocidad máxima:</strong> {road.velocidad_max} km/h</p>
                     </div>
                 ) : (
                     <p>No se encontraron detalles del carril.</p>

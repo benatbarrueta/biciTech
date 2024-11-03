@@ -7,6 +7,7 @@ import Header from './components/header/Header.js';
 import Home from './components/roads/Home.js';
 import Roads from './components/roads/Roads.js';
 import RoadDetail from './components/roads/RoadDetail.js';
+import Favorites from './components/roads/Favorites.js';
 
 function App() {
   const [isAuthenticated, setIsAuthentificated] = useState(false);
@@ -30,6 +31,7 @@ function App() {
           <Route path="/home" element={isAuthenticated ? <Home /> : <Navigate to="/" />} />
           <Route path="/roads" element={<Roads />} />
           <Route path="/roads/:roadID" element={<RoadDetail />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </div>
     </Router>

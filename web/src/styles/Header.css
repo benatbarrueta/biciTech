@@ -2,7 +2,7 @@
 
 .header {
     position: relative;
-    background-image: url('fondoApp.jpg');
+    background-image: url('images/fondoApp.jpg');
     background-size: cover;
     background-position: center;
     height: 15vh;
