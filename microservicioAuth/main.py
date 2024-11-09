@@ -114,6 +114,9 @@ class AddFavoriteRoad(BaseModel):
 class DeleteFavoriteRoad(BaseModel):
     road: str # The name of the road to delete from the user's favorites
 
+class FavoriteRoad(BaseModel):
+    roadID: str 
+
 # Route to add a favorite road to the user
 @app.post("/auth/favorite-roads/add")
 async def add_favorite_road(
@@ -170,6 +173,23 @@ async def get_all_favorite_roads(current_user: str = Depends(getCurrentUser)):
     cursor.close()
     
     return favorite_roads
+
+@app.post("/auth/favorite-roads/check")
+async def check_favorite_road(
+    road: FavoriteRoad,
+    current_user: str = Depends(getCurrentUser)
+):
+    cursor = db.cursor()
+    
+    # Check if the road is a favorite
+    query = "SELECT * FROM favoriteRoads WHERE username=%s AND roadID=%s"
+    cursor.execute(query, (current_user, road.roadID))
+    favorite_road = cursor.fetchone()
+    
+    cursor.close()
+    
+    # Return true if an element is found, false otherwise
+    return {"isFavorite": favorite_road is not None}
 
 if __name__ == "__main__":
     import uvicorn
