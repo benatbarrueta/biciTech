@@ -21,7 +21,7 @@ app.get('/weather/:city', async (req, res) => {
             humidity: data.main.humidity,
             wind: data.wind.speed
         });
-        console.log('Weather obtained successfully');
+        console.log('Weather of city ' + data.name + ' obtained successfully');
     } catch (error) {
         console.error('Error obtaining weather:', error.message);
     }

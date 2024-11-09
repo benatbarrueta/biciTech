@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import axios from "axios";
 import '../../styles/RoadDetail.css';
 import { useParams } from 'react-router-dom';
@@ -9,6 +10,11 @@ const RoadDetail = () => {
     const [weather, setWeather] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    const toggleFavorite = () => {
+        setIsFavorite(!isFavorite);
+    };
 
     useEffect(() => {
         // Activar el estado de carga
@@ -82,6 +88,7 @@ const RoadDetail = () => {
                         <p><strong>Ciudad:</strong> {road.ciudad}</p>
                         <p><strong>Velocidad máxima:</strong> {road.velocidad_max} km/h</p>
                     </div>
+
                 ) : (
                     <p>No se encontraron detalles del carril.</p>
                 )}
@@ -101,6 +108,14 @@ const RoadDetail = () => {
                         <p>No se encontraron detalles del tiempo.</p>
                     )}
                 </div>
+            </div>
+
+            <div onClick={toggleFavorite} style={{ cursor: 'pointer' }}>
+                {isFavorite ? (
+                    <FaHeart color="red" size={24} /> // Corazón lleno en rojo
+                ) : (
+                    <FaRegHeart color="red" size={24} /> // Corazón contorno en rojo
+                )}
             </div>
         </div>
     );
