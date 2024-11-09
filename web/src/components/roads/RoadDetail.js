@@ -111,11 +111,7 @@ const RoadDetail = () => {
             </div>
 
             <div onClick={toggleFavorite} style={{ cursor: 'pointer' }}>
-                {isFavorite ? (
-                    <FaHeart color="red" size={24} /> // Corazón lleno en rojo
-                ) : (
-                    <FaRegHeart color="red" size={24} /> // Corazón contorno en rojo
-                )}
+                {isFavorite && <FaHeart color="red" size={24} />}
             </div>
         </div>
     );

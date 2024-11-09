@@ -34,7 +34,7 @@ const RoadList = () => {
     return (
         <div>
             {roads.slice(0, showAll ? roads.length : 12).map((road) => (
-                <RoadCard key={road.roadID} road={road} />
+                <RoadCard key={road.roadID} road={road} id={road.roadID} token={localStorage.getItem('token')} />
             ))}
             {!showAll && roads.length > 20 && (
                 <div style={{ textAlign: 'center', marginTop: '20px' }}>
