@@ -4,6 +4,8 @@ const fs = require('fs');
 const connectDB = require('./config/db');
 const mongoose = require('mongoose');
 const port = 6000;
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 // Connect to MongoDB
 connectDB();
@@ -23,7 +25,24 @@ const CarrilSchema = new mongoose.Schema({
 // Create mongoose model
 const Carril = mongoose.model('Carril', CarrilSchema);
 
-// Upload all the data into the database
+/**
+ * @swagger
+ * /roads/uploadData:
+ *   get:
+ *     description: Uploads the data from the file viasCiclistas.json into the database
+ *     responses:
+ *       200:
+ *         description: Data uploaded successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Error uploading the data
+ */
 app.get('/roads/uploadData', async (req, res) => {
     try {
         // Read the data from the file
@@ -61,11 +80,27 @@ app.get('/roads/uploadData', async (req, res) => {
     }
 });
 
-// Get all the data from the database
+/**
+ * @swagger
+ * /roads/getAll:
+ *   get:
+ *     description: Get all the data from the database
+ *     responses:
+ *       200:
+ *         description: Data retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                  $ref: '#/components/schemas/Carril'
+ *       500:
+ *         description: Error retrieving the data
+ */
 app.get('/roads/getAll', async (req, res) => {
     try {
         const carriles = await Carril.find();
-        
+
         console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
     } catch (error) {
@@ -73,7 +108,29 @@ app.get('/roads/getAll', async (req, res) => {
     }
 });
 
-// Get the data from the database by id
+/**
+ * @swagger
+ * /roads/id/{roadID}:
+ *   get:
+ *     description: Get the data from the database by ID
+ *     parameters:
+ *       - in: path
+ *         name: roadID
+ *         schema:
+ *         type: string
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Data retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Carril'
+ *       404:
+ *         description: Carril not found
+ *       500:
+ *         description: Error retrieving the data
+ */
 app.get('/roads/id/:roadID', async (req, res) => {
     try {
         console.log(req.params);
@@ -95,7 +152,7 @@ app.get('/roads/id/:roadID', async (req, res) => {
 // Get the data from the database by type
 app.get('/roads/type/:type', async (req, res) => {
     try {
-        const carriles = await Carril.find({tipo: req.params.type});
+        const carriles = await Carril.find({ tipo: req.params.type });
 
         console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
@@ -107,7 +164,7 @@ app.get('/roads/type/:type', async (req, res) => {
 // Get the data from the database by surface
 app.get('/roads/surface/:surface', async (req, res) => {
     try {
-        const carriles = await Carril.find({suelo: req.params.surface});
+        const carriles = await Carril.find({ suelo: req.params.surface });
 
         console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
@@ -119,7 +176,7 @@ app.get('/roads/surface/:surface', async (req, res) => {
 // Get the data from the database by distance
 app.get('/roads/distance/:distance', async (req, res) => {
     try {
-        const carriles = await Carril.find({distancia: {$lt: req.params.distance}});
+        const carriles = await Carril.find({ distancia: { $lt: req.params.distance } });
 
         console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
@@ -131,7 +188,7 @@ app.get('/roads/distance/:distance', async (req, res) => {
 // Get the data from the database by maximum speed
 app.get('/roads/speed/:speed', async (req, res) => {
     try {
-        const carriles = await Carril.find({velocidad_max: {$lt: req.params.speed}});
+        const carriles = await Carril.find({ velocidad_max: { $lt: req.params.speed } });
 
         console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
@@ -143,7 +200,7 @@ app.get('/roads/speed/:speed', async (req, res) => {
 // Get the data from the database by name
 app.get('/roads/name/:name', async (req, res) => {
     try {
-        const carriles = await Carril.find({nombre: req.params.name});
+        const carriles = await Carril.find({ nombre: req.params.name });
 
         console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
@@ -155,7 +212,7 @@ app.get('/roads/name/:name', async (req, res) => {
 // Get the data from the database by province
 app.get('/roads/province/:province', async (req, res) => {
     try {
-        const carriles = await Carril.find({provincia: req.params.province});
+        const carriles = await Carril.find({ provincia: req.params.province });
 
         console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
@@ -167,7 +224,7 @@ app.get('/roads/province/:province', async (req, res) => {
 // Get the data from the database by city
 app.get('/roads/city/:city', async (req, res) => {
     try {
-        const carriles = await Carril.find({ciudad: req.params.city});
+        const carriles = await Carril.find({ ciudad: req.params.city });
 
         console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
@@ -176,6 +233,25 @@ app.get('/roads/city/:city', async (req, res) => {
     }
 });
 
+// Swagger configuration
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Roads API',
+            version: '1.0.0',
+            description: 'Roads API documentation',
+        },
+    },
+    apis: [__filename], // Path to the current file (main.js)
+};
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+
+// Add Swagger to Express
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Start the server
 app.listen(port, () => {
     console.log('Server listening on port ' + port);
 });
