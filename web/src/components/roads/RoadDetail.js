@@ -12,10 +12,6 @@ const RoadDetail = () => {
     const [error, setError] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
 
-    const toggleFavorite = () => {
-        setIsFavorite(!isFavorite);
-    };
-
     useEffect(() => {
         // Activar el estado de carga
         setLoading(true);
@@ -26,24 +22,82 @@ const RoadDetail = () => {
                 console.log(response.data);
                 setRoad(response.data);
                 setLoading(false);
+
                 axios.get(`/api/weather/${response.data.ciudad}`)
                     .then(weatherResponse => {
                         console.log(weatherResponse.data);
                         setWeather(weatherResponse.data);
                         setLoading(false);
-                    })/*
+                    })
                     .catch(error => {
-                        setError('Error al obtener los detalles del tiempo');
-                        console.error('Error al obtener los detalles del carril:', error);
+                        setError('Error getting road details');
+                        console.error('Error getting road details:', error);
                         setLoading(false);
-                    });*/
+                    });
+
+                axios.post('http://localhost:8000/auth/favorite-roads/check', {
+                    roadID: String(roadID)
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}` // Incluye el token en el encabezado
+                    }
+                })
+                    .then(favorite => {
+                        setIsFavorite(favorite.data.isFavorite);
+                    })
+                    .catch(error => {
+                        setError('Error getting favorite state');
+                        console.error('Error checking favorite state:', error);
+                    });
             })
             .catch(error => {
-                setError('Error al obtener los detalles del carril');
-                console.error('Error al obtener los detalles del carril:', error);
+                setError('Error getting road details');
+                console.error('Error getting road details:', error);
                 setLoading(false);
             });
     }, [roadID]); // Ejecutar solo cuando `roadID` cambie
+
+    // Función para alternar el estado de favorito
+    const toggleFavorite = async () => {
+        try {
+            setIsFavorite(!isFavorite);
+            if (isFavorite) {
+                try {
+                    console.log(road.id);
+                    const response = await axios.delete(
+                        `http://localhost:8000/auth/favorite-roads/delete`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem('token')}`
+                            }, data: { road: road.id }
+                        }
+                    );
+
+                    console.log(response.data.message);
+                } catch (error) {
+                    console.error('Error deletting favorite road:', error);
+                }
+            } else {
+                try {
+                    const response = await axios.post(
+                        'http://localhost:8000/auth/favorite-roads/add',
+                        { road: road.id },
+                        {
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem('token')}`
+                            }
+                        }
+                    );
+
+                    console.log(response.data.message);
+                } catch (error) {
+                    console.error('Error adding favorite road:', error);
+                }
+            }
+        } catch (error) {
+            console.error('Error changing favorite state:', error);
+        }
+    };
 
     if (loading) {
         return <p>Cargando...</p>;
@@ -110,8 +164,12 @@ const RoadDetail = () => {
                 </div>
             </div>
 
-            <div onClick={toggleFavorite} style={{ cursor: 'pointer' }}>
-                {isFavorite && <FaHeart color="red" size={24} />}
+            <div style={{ display: 'flex', justifyContent: 'flex-end', cursor: 'pointer' }} onClick={toggleFavorite}>
+                {isFavorite ? (
+                    <FaHeart color="red" size={24} /> // Corazón lleno en rojo
+                ) : (
+                    <FaRegHeart color="red" size={24} /> // Corazón contorno en rojo
+                )}
             </div>
         </div>
     );

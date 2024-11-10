@@ -13,7 +13,7 @@ const RoadCard = ({ road, id, token }) => { // Recibe el token como prop
             try {
                 const response = await axios.post(
                     'http://localhost:8000/auth/favorite-roads/check',
-                    { roadID: String(road.roadID) },
+                    { roadID: String(id) },
                     {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem('token')}` // Incluye el token en el encabezado
@@ -22,7 +22,7 @@ const RoadCard = ({ road, id, token }) => { // Recibe el token como prop
                 );
                 setIsFavorite(response.data.isFavorite);
             } catch (error) {
-                console.error('Error al comprobar el estado de favorito:', error);
+                console.error('Error checking favorite state:', error);
             }
         };
 
@@ -47,7 +47,7 @@ const RoadCard = ({ road, id, token }) => { // Recibe el token como prop
             
                     console.log(response.data.message);
                 } catch (error) {
-                    console.error('Error al eliminar la carretera de favoritos:', error);
+                    console.error('Error deleting favorite road:', error);
                 }
             } else {
                 try {
@@ -63,11 +63,11 @@ const RoadCard = ({ road, id, token }) => { // Recibe el token como prop
             
                     console.log(response.data.message);
                 } catch (error) {
-                    console.error('Error al agregar la carretera a favoritos:', error);
+                    console.error('Error adding favorite road:', error);
                 }
             }
         } catch (error) {
-            console.error('Error al alternar el estado de favorito:', error);
+            console.error('Error changing favorite state:', error);
         }
     };
 

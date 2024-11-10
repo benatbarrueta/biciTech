@@ -21,7 +21,7 @@ const RoadList = () => {
             setRoads(roadsData);
         })
         .catch(error => {
-            console.error('Error al obtener los carriles:', error);
+            console.error('Error getting roads:', error);
         });
     }, []);
     

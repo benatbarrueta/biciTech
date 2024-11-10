@@ -23,11 +23,11 @@ const Favorites = () => {
                         setFavoriteRoads(roads);
                     })
                     .catch(error => {
-                        console.error('Error al obtener los detalles de las carreteras:', error);
+                        console.error('Error getting favorite road:', error);
                     });
             })
             .catch(error => {
-                console.error('Error al obtener los viajes favoritos:', error);
+                console.error('Error getting favorite road:', error);
             });
     }, []);
 
