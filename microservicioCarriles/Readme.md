@@ -16,3 +16,6 @@ To do this, run the following command:
 To run the project, simply execute the following command:
 
     npm start
+
+## DOCUMENTATION 📄
+If you want to see the documentation of the api you have to enter in this [link](http:localhost:8000/api-docs) after starting the server

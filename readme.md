@@ -11,7 +11,7 @@ To run it, you need to download or clone the repository and have MongoDB and Nod
 
 You need to download the following dependencies:
 
-**config, express, fs, mongodb, mongoose, nodemon, swagger-jsdoc, and swagger-ui-express**
+**config, express, fs, mongodb, mongoose, nodemon, swagger-jsdoc and swagger-ui-express**
 
 To do this, run the following command:
 
@@ -22,6 +22,9 @@ To run the project, simply execute the following command:
 
     npm start
 
+#### DOCUMENTATION 📄
+If you want to see the documentation of the api you have to enter in this [link](http:localhost:8000/api-docs) after starting the server
+
 ### 2. WEATHER MICROSERVICE 🌤️
 This microservice is developed in Node.js and is used to obtain the weather data for each bike lane. It communicates with the app with the OpenWeather API.
 
@@ -30,7 +33,7 @@ To run it, you need to download or clone the repository and have Node.js install
 
 You need to download the following dependencies:
 
-**axios, config, dotenv, express, mongo, mongoose, nodemon, and openweather**
+**axios, config, dotenv, express, mongo, mongoose, nodemon, openweather swagger-jsdoc, and swagger-ui-express**
 
 To do this, run the following command:
 
@@ -40,6 +43,9 @@ To do this, run the following command:
 To run the project, simply execute the following command:
     
     npm start
+
+#### DOCUMENTATION 📄
+If you want to see the documentation of the api you have to enter in this [link](http:localhost:2000/api-docs) after starting the server
 
 ### 3. AUTHENTICATION MICROSERVICE 🪪
 This microservice is developed in Flask(Python) and is used to log in, register, get the data related with the user. All the dat ais saved in a mysql database.

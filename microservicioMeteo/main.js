@@ -11,36 +11,37 @@ const swaggerUi = require('swagger-ui-express');
  * /weather/{city}:
  *   get:
  *     description: Get the weather of a city
- *       parameters:
- *         - name: city
+ *     parameters:
+ *       - name: city
  *         in: path
  *         description: City name
  *         required: true
  *         schema:
  *           type: string
- *         responses:
- *           200:
- *             description: Weather obtained successfully
- *             content:
- *               application/json:
- *                 schema:
- *                   type: object
- *                     properties:
- *                       city:
- *                         type: string
- *                       temperature:
- *                         type: number
- *                       description:
- *                         type: string
- *                       humidity:
- *                         type: number
- *                       wind:
- *                         type: number
- *           404:
- *             description: City not found
- *           500:
- *             description: Error obtaining the weather
+ *     responses:
+ *       200:
+ *         description: Weather obtained successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 city:
+ *                   type: string
+ *                 temperature:
+ *                   type: number
+ *                 description:
+ *                   type: string
+ *                 humidity:
+ *                   type: number
+ *                 wind:
+ *                   type: number
+ *       404:
+ *         description: City not found
+ *       500:
+ *         description: Error obtaining the weather
  */
+
 app.get('/weather/:city', async (req, res) => {
     try {
         const apiKey = process.env.OPENWEATHER_API_KEY;
@@ -60,6 +61,7 @@ app.get('/weather/:city', async (req, res) => {
         console.log('Weather of city ' + data.name + ' obtained successfully');
     } catch (error) {
         console.error('Error obtaining weather:', error.message);
+        res.status(500).json({ error: 'Error obtaining weather' });
     }
 });
 

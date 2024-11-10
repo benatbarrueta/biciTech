@@ -3,14 +3,14 @@ const app = express();
 const fs = require('fs');
 const connectDB = require('./config/db');
 const mongoose = require('mongoose');
-const port = 6000;
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const port = 8000;
 
-// Connect to MongoDB
+// Conectar a MongoDB
 connectDB();
 
-// Define schema
+// Definir esquema de Mongoose
 const CarrilSchema = new mongoose.Schema({
     id: String,
     velocidad_max: Number,
@@ -22,7 +22,7 @@ const CarrilSchema = new mongoose.Schema({
     ciudad: String
 });
 
-// Create mongoose model
+// Crear modelo de Mongoose
 const Carril = mongoose.model('Carril', CarrilSchema);
 
 /**
@@ -45,18 +45,17 @@ const Carril = mongoose.model('Carril', CarrilSchema);
  */
 app.get('/roads/uploadData', async (req, res) => {
     try {
-        // Read the data from the file
+        // Leer datos del archivo
         const data = fs.readFileSync('./data/viasCiclistas.json', 'utf8');
         const jsonData = JSON.parse(data);
 
         const tripsArray = jsonData["Cicling road details dataset"];
 
-        // Verify that there is an array of trips
         if (!Array.isArray(tripsArray)) {
             throw new TypeError('Los datos cargados no son un arreglo');
         }
 
-        // Delete all the data in database
+        // Eliminar todos los datos de la base de datos
         await Carril.deleteMany({});
 
         const carrilesToInsert = tripsArray.map(carril => ({
@@ -70,7 +69,7 @@ app.get('/roads/uploadData', async (req, res) => {
             ciudad: carril["ciudad"]
         }));
 
-        // Insert all the data into the database
+        // Insertar todos los datos en la base de datos
         await Carril.insertMany(carrilesToInsert);
 
         console.log('Data uploaded successfully');
@@ -93,14 +92,13 @@ app.get('/roads/uploadData', async (req, res) => {
  *             schema:
  *               type: array
  *               items:
- *                  $ref: '#/components/schemas/Carril'
+ *                 $ref: '#/components/schemas/Carril'
  *       500:
  *         description: Error retrieving the data
  */
 app.get('/roads/getAll', async (req, res) => {
     try {
         const carriles = await Carril.find();
-
         console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
     } catch (error) {
@@ -117,8 +115,9 @@ app.get('/roads/getAll', async (req, res) => {
  *       - in: path
  *         name: roadID
  *         schema:
- *         type: string
+ *           type: string
  *         required: true
+ *         description: The ID of the road
  *     responses:
  *       200:
  *         description: Data retrieved successfully
@@ -133,107 +132,81 @@ app.get('/roads/getAll', async (req, res) => {
  */
 app.get('/roads/id/:roadID', async (req, res) => {
     try {
-        console.log(req.params);
         const carril = await Carril.findOne({ id: req.params.roadID });
-
-
         if (!carril) {
-            console.log("No element found");
             return res.status(404).json({ error: "Carril no encontrado" });
         }
-
         res.json(carril);
-        console.log('Element retrieved successfully');
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Get the data from the database by type
+// Otras rutas
 app.get('/roads/type/:type', async (req, res) => {
     try {
         const carriles = await Carril.find({ tipo: req.params.type });
-
-        console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Get the data from the database by surface
 app.get('/roads/surface/:surface', async (req, res) => {
     try {
         const carriles = await Carril.find({ suelo: req.params.surface });
-
-        console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Get the data from the database by distance
 app.get('/roads/distance/:distance', async (req, res) => {
     try {
         const carriles = await Carril.find({ distancia: { $lt: req.params.distance } });
-
-        console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Get the data from the database by maximum speed
 app.get('/roads/speed/:speed', async (req, res) => {
     try {
         const carriles = await Carril.find({ velocidad_max: { $lt: req.params.speed } });
-
-        console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Get the data from the database by name
 app.get('/roads/name/:name', async (req, res) => {
     try {
         const carriles = await Carril.find({ nombre: req.params.name });
-
-        console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Get the data from the database by province
 app.get('/roads/province/:province', async (req, res) => {
     try {
         const carriles = await Carril.find({ provincia: req.params.province });
-
-        console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Get the data from the database by city
 app.get('/roads/city/:city', async (req, res) => {
     try {
         const carriles = await Carril.find({ ciudad: req.params.city });
-
-        console.log(carriles.length + ' elements retrieved successfully');
         res.json(carriles);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Swagger configuration
+// Configuración de Swagger
 const swaggerOptions = {
     swaggerDefinition: {
         openapi: '3.0.0',
@@ -242,16 +215,33 @@ const swaggerOptions = {
             version: '1.0.0',
             description: 'Roads API documentation',
         },
+        components: {
+            schemas: {
+                Carril: {
+                    type: 'object',
+                    properties: {
+                        id: { type: 'string' },
+                        velocidad_max: { type: 'number' },
+                        tipo: { type: 'string' },
+                        nombre: { type: 'string' },
+                        suelo: { type: 'string' },
+                        distancia: { type: 'number' },
+                        provincia: { type: 'string' },
+                        ciudad: { type: 'string' },
+                    },
+                },
+            },
+        },
     },
-    apis: [__filename], // Path to the current file (main.js)
+    apis: [__filename],
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
-// Add Swagger to Express
+// Agregar Swagger a Express
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Start the server
+// Iniciar el servidor
 app.listen(port, () => {
     console.log('Server listening on port ' + port);
 });
