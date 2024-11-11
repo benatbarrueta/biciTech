@@ -9,9 +9,9 @@ const server = http.createServer((req, res) => {
 
     if (req.url.startsWith('/roads')) {
 
-        console.log('Redirecting request to /roads to port 8000');
+        console.log('Redirecting request to /roads to port 9000');
         console.log('Request URL:', req.url);
-        proxy.web(req, res, { target: 'http://localhost:8000' });
+        proxy.web(req, res, { target: 'http://localhost:9000' });
 
     } else if (req.url.startsWith('/weather')) {
         // Redirige las solicitudes que comienzan con /travel al microservicio de viajes (puerto 2000)

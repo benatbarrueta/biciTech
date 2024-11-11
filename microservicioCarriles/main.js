@@ -5,7 +5,7 @@ const connectDB = require('./config/db');
 const mongoose = require('mongoose');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const port = 8000;
+const port = 9000;
 
 // Conectar a MongoDB
 connectDB();
