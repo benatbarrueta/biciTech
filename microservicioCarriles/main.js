@@ -142,6 +142,8 @@ app.get('/roads/id/:roadID', async (req, res) => {
     }
 });
 
+app.get()
+
 // Otras rutas
 app.get('/roads/type/:type', async (req, res) => {
     try {

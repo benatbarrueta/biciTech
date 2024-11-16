@@ -8,6 +8,9 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 db = pymysql.connect(
     host="localhost",
@@ -46,6 +49,14 @@ class User(BaseModel):
 load_dotenv()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+# Función para hashear la contraseña
+def hash_password(password: str) -> str:
+    return pwd_context.hash(password)
+
+# Función para verificar la contraseña
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    return pwd_context.verify(plain_password, hashed_password)
  
 # Función para crear un token JWT
 def create_jwt_token(data: dict):
@@ -58,16 +69,20 @@ def create_jwt_token(data: dict):
 @app.post("/auth/token")
 async def generate_token(form_data: OAuth2PasswordRequestForm = Depends()):
     cursor = db.cursor()
-    query = "SELECT * FROM user WHERE username=%s AND password=%s"
-    cursor.execute(query, (form_data.username, form_data.password))
+    
+    # Buscar el usuario en la base de datos
+    query = "SELECT * FROM user WHERE username=%s"
+    cursor.execute(query, (form_data.username,))
     user = cursor.fetchone()
     cursor.close()
 
-    if user:
-        token = create_jwt_token({"sub": user["username"]})
-        return {"access_token": token, "token_type": "bearer"}
-    else:
+    # Verificar si el usuario existe y si la contraseña es correcta
+    if not user or not verify_password(form_data.password, user["password"]):
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
+
+    # Generar el token JWT
+    token = create_jwt_token({"sub": user["username"]})
+    return {"access_token": token, "token_type": "bearer"}
 
 # Route to register a new user
 @app.post("/auth/register")
@@ -82,10 +97,13 @@ async def register(user_data: User):
     if existing_user:
         cursor.close()
         raise HTTPException(status_code=400, detail="User already exists")
+    
+    # Hash the password
+    hashedPassword = hash_password(user_data.password)
 
     # Insert the new user into the database
     insert_query = "INSERT INTO user (name, username, password) VALUES (%s, %s, %s)"
-    cursor.execute(insert_query, (user_data.name, user_data.username, user_data.password))
+    cursor.execute(insert_query, (user_data.name, user_data.username, hashedPassword))
     
     db.commit()
     cursor.close()
