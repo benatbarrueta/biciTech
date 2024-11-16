@@ -4,7 +4,7 @@ import pymysql
 import jwt
 import datetime
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from requests_oauthlib import OAuth2Session
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
@@ -48,6 +48,13 @@ class User(BaseModel):
 # Load environment variables
 load_dotenv()
 
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
+SECRET_KEY = os.getenv("SECRET_KEY")
+GOOGLE_REDIRECT_URI = "http://localhost:8000/auth/google/callback"
+AUTHORIZATION_BASE_URL = "https://accounts.google.com/o/oauth2/auth"
+TOKEN_URL = "https://oauth2.googleapis.com/token"
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # Función para hashear la contraseña
@@ -62,8 +69,44 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 def create_jwt_token(data: dict):
     expiration = datetime.datetime.utcnow() + datetime.timedelta(hours=1)
     data.update({"exp": expiration})
-    token = jwt.encode(data, os.getenv("SECRET_KEY"), algorithm="HS256")
+    token = jwt.encode(data, SECRET_KEY, algorithm="HS256")
     return token
+
+# Ruta para iniciar el flujo de autenticación con Google
+@app.get("/auth/google")
+async def google_login():
+    google = OAuth2Session(GOOGLE_CLIENT_ID, redirect_uri=GOOGLE_REDIRECT_URI, scope=["openid", "email", "profile"])
+    authorization_url, _ = google.authorization_url(AUTHORIZATION_BASE_URL, access_type="offline", prompt="select_account")
+    return {"authorization_url": authorization_url}
+
+# Ruta de callback para manejar la respuesta de Google
+@app.get("/auth/google/callback")
+async def google_callback(code: str):
+    google = OAuth2Session(GOOGLE_CLIENT_ID, redirect_uri=GOOGLE_REDIRECT_URI)
+    token = google.fetch_token(TOKEN_URL, client_secret=GOOGLE_CLIENT_SECRET, code=code)
+
+    # Obtener información del usuario
+    user_info = google.get("https://www.googleapis.com/oauth2/v1/userinfo").json()
+    
+    # Manejar la lógica de registro/inicio de sesión en la base de datos
+    cursor = db.cursor()
+    
+    # Verificar si el usuario ya existe
+    query = "SELECT * FROM user WHERE username=%s"
+    cursor.execute(query, (user_info["email"],))
+    user = cursor.fetchone()
+
+    if not user:
+        # Si el usuario no existe, registrar uno nuevo
+        insert_query = "INSERT INTO user (name, username, password) VALUES (%s, %s, %s)"
+        cursor.execute(insert_query, (user_info["name"], user_info["email"], ""))
+        db.commit()
+
+    cursor.close()
+
+    # Generar un token JWT para el usuario
+    jwt_token = create_jwt_token({"sub": user_info["email"]})
+    return {"access_token": jwt_token, "token_type": "bearer"}
 
 # Ruta para generar el token JWT
 @app.post("/auth/token")
@@ -113,7 +156,7 @@ async def register(user_data: User):
 # Function to get the current user
 async def getCurrentUser(token: str = Depends(oauth2_scheme)):
     try:
-        payload = jwt.decode(token, os.getenv("SECRET_KEY"), algorithms=["HS256"])
+        payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
         username = payload.get("sub")
         if username is None:
             raise HTTPException(status_code=401, detail="Credencial inválida")

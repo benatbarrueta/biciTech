@@ -40,6 +40,20 @@ const Auth = ({ onLogin }) => {
         navigate('/register');
     }
 
+    const loginWithGoogle = async () => {
+        try {
+            // Realiza una solicitud al backend para obtener la URL de autorización de Google
+            const response = await axios.get('/api/auth/google');
+            console.log(response.data)
+            if (response.status === 200 && response.data.authorization_url) {
+                // Redirige al usuario a la URL de autorización de Google
+                window.location.href = response.data.authorization_url;
+            }
+        } catch (error) {
+            console.error('Error al iniciar sesión con Google:', error);
+        }
+    };
+
     return (
         <div className="auth-container">
             <img src={require('../../styles/images/logo.png')} alt="Bici Tech" />
@@ -62,6 +76,14 @@ const Auth = ({ onLogin }) => {
                 <button className="auth-button" onClick={login}>Iniciar Sesión</button>
                 <button className="auth-button" onClick={register}>Registrarse</button>
             </div>
+            <button className="google-button" onClick={loginWithGoogle}>
+            <img
+                    className="google-icon"
+                    src={require('../../styles/images/google.png')}
+                    alt="Google"
+                />
+                Iniciar Sesión con Google
+            </button>
         </div>
     );
 }

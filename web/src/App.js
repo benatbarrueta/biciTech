@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './styles/App.css';
 import Auth from './components/auth/Auth.js';
+import GoogleCallback from './components/auth/GoogleCallback.js'; 
 import Register from './components/auth/Register.js';
 import Header from './components/header/Header.js';
 import Home from './components/roads/Home.js';
@@ -27,6 +28,7 @@ function App() {
         {/* Usar el componente Routes */}
         <Routes>
           <Route path="/" element={<Auth onLogin={handleLogin} />} />
+          <Route path="/auth/google/callback" element={<GoogleCallback onLogin={handleLogin} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={isAuthenticated ? <Home /> : <Navigate to="/" />} />
           <Route path="/roads" element={<Roads />} />

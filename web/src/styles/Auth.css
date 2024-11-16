@@ -1,77 +1,106 @@
+.google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #5f6368;
+  border: 1px solid #dadce0;
+  margin-left: 10px; 
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  width: 280px;
+  outline: none;
+}
+
+.google-button:hover {
+  background-color: #f7f8f9;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 0 4px 8px rgba(60, 64, 67, 0.15);
+}
+
+.google-icon {
+  height: 25px;
+  width: 25px;
+  margin-right: 12px;
+}
 
 .main-title {
-    text-align: center; /* Centrar el texto horizontalmente */
-    font-size: 3.5em;
-      font-family: 'Pacifico', cursive;
-      text-shadow: 3px 3px 6px hsla(0, 0%, 0%, 0.7);
-  }
-  body {
-    margin: 0;
-    padding: 0;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    background-image: url('images/fondoApp.jpg');
-    background-size: cover;
-  }
-  
-  .auth-container {
-    background-color: rgba(255, 255, 255, 0.8); /* Ajusta la transparencia según la imagen */
-    width: 300px;
-    margin: 50px auto; 
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    text-align: center;
-  }
+  text-align: center;
+  /* Centrar el texto horizontalmente */
+  font-size: 3.5em;
+  font-family: 'Pacifico', cursive;
+  text-shadow: 3px 3px 6px hsla(0, 0%, 0%, 0.7);
+}
 
-  img {
-    width: 100px;
-  }
-  
-  .auth-container h1 {
-    font-size: 2em; 
-    color: #333; 
-    margin-bottom: 30px; 
-  }
-  
-  .auth-container label {
-    display: block;
-    font-size: 1em; 
-    color: #333; 
-    margin: 10px 0;
-  }
-  
-  .auth-container input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 15px; 
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .auth-container button {
-    width: calc(100% - 20px);
-    background-color: #333;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    margin-top: 10px; 
-    font-size: 1em; 
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .auth-container button:hover {
-    background-color: #555; 
-  }
+body {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  background-image: url('images/fondoApp.jpg');
+  background-size: cover;
+}
 
-  .auth-link {
-    text-decoration: none;
-    color: blue;
-  }
+.auth-container {
+  background-color: rgba(255, 255, 255, 0.8);
+  /* Ajusta la transparencia según la imagen */
+  width: 300px;
+  margin: 50px auto;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
 
-  .auth-link:hover {
-    text-decoration: underline;
-  }
-  
+img {
+  width: 100px;
+}
+
+.auth-container h1 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.auth-container label {
+  display: block;
+  font-size: 1em;
+  color: #333;
+  margin: 10px 0;
+}
+
+.auth-container input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.auth-button {
+  width: calc(100% - 20px);
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.auth-button:hover {
+  background-color: #555;
+}
+
+.auth-link {
+  text-decoration: none;
+  color: blue;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
