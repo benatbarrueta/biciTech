@@ -11,6 +11,7 @@ const RoadCard = ({ road, id, token }) => { // Recibe el token como prop
     useEffect(() => {
         const fetchFavoriteStatus = async () => {
             try {
+                console.log(localStorage.getItem('token'));
                 const response = await axios.post(
                     'http://localhost:8000/auth/favorite-roads/check',
                     { roadID: String(id) },
@@ -33,6 +34,7 @@ const RoadCard = ({ road, id, token }) => { // Recibe el token como prop
     const toggleFavorite = async () => {
         try {
             setIsFavorite(!isFavorite);
+            console.log(token)
             if (isFavorite) {
                 try {
                     console.log(road.roadID);
