@@ -4,6 +4,7 @@ import pymysql
 import jwt
 import datetime
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.responses import RedirectResponse
 from requests_oauthlib import OAuth2Session
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
@@ -51,7 +52,7 @@ load_dotenv()
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 SECRET_KEY = os.getenv("SECRET_KEY")
-GOOGLE_REDIRECT_URI = "http://localhost:8000/auth/google/callback"
+GOOGLE_REDIRECT_URI = "http://localhost:3000/auth/google/callback"
 AUTHORIZATION_BASE_URL = "https://accounts.google.com/o/oauth2/auth"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 
@@ -106,7 +107,7 @@ async def google_callback(code: str):
 
     # Generar un token JWT para el usuario
     jwt_token = create_jwt_token({"sub": user_info["email"]})
-    return {"access_token": jwt_token, "token_type": "bearer"}
+    return {"access_token": token, "token_type": "bearer"}
 
 # Ruta para generar el token JWT
 @app.post("/auth/token")
@@ -152,6 +153,11 @@ async def register(user_data: User):
     cursor.close()
     
     return {"message": "User registered successfully"}
+
+# Route to logout the user
+@app.post("/auth/logout")
+async def logout(token: str = Depends(oauth2_scheme)):
+    return {"message": "User logged out successfully"}
 
 # Function to get the current user
 async def getCurrentUser(token: str = Depends(oauth2_scheme)):
