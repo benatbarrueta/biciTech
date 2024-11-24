@@ -49,16 +49,16 @@ app.get('/roads/uploadData', async (req, res) => {
         const data = fs.readFileSync('./data/viasCiclistas.json', 'utf8');
         const jsonData = JSON.parse(data);
 
-        const tripsArray = jsonData["Cicling road details dataset"];
+        const tripsRoads = jsonData["Cicling road details dataset"];
 
-        if (!Array.isArray(tripsArray)) {
-            throw new TypeError('Los datos cargados no son un arreglo');
+        if (!Array.isArray(tripsRoads)) {
+            throw new TypeError('The data is not an array');
         }
 
         // Eliminar todos los datos de la base de datos
         await Carril.deleteMany({});
 
-        const carrilesToInsert = tripsArray.map(carril => ({
+        const carrilesToInsert = tripsRoads.map(carril => ({
             id: carril["id"],
             velocidad_max: carril["velocidad_max"],
             tipo: carril["tipo"],
@@ -141,8 +141,6 @@ app.get('/roads/id/:roadID', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
-app.get()
 
 // Otras rutas
 app.get('/roads/type/:type', async (req, res) => {
