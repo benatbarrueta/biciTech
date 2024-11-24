@@ -45,11 +45,11 @@ const Favorites = () => {
                         <div className="road-card">
                             <h3>{road.nombre}</h3>
                             <p><strong>Tipo:</strong> {road.tipo}</p>
-                            <p><strong>Distancia:</strong> {road.distancia}</p>
+                            <p><strong>Distancia:</strong> {road.distancia} km</p>
                             <p><strong>Superficie:</strong> {road.suelo}</p>
                             <p><strong>Provincia:</strong> {road.provincia}</p>
                             <p><strong>Ciudad:</strong> {road.ciudad}</p>
-                            <p><strong>Velocidad máxima:</strong> {road.velocidad_max}</p>
+                            <p><strong>Velocidad máxima:</strong> {road.velocidad_max} km/h</p>
                             <Link to={`/roads/${road.id}`} className="details-button">
                                 Ver detalles
                             </Link>

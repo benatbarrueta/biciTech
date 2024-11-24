@@ -104,3 +104,24 @@ img {
 .auth-link:hover {
   text-decoration: underline;
 }
+
+.auth-register{
+  text-decoration: none;
+  color: black;
+  margin-top: 10px;
+}
+
+hr {
+  color: black;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+Link {
+  text-decoration: none;
+  color: black;
+}
+
+Link:hover {
+  text-decoration: underline;
+}

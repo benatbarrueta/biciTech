@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../../styles/Auth.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useToken } from './tokenContext';
 
 const Auth = ({ onLogin }) => {
@@ -43,10 +43,12 @@ const Auth = ({ onLogin }) => {
     const loginWithGoogle = async () => {
         try {
             // Realiza una solicitud al backend para obtener la URL de autorización de Google
+            console.log('Iniciando sesión con Google...');
             const response = await axios.get('/api/auth/google');
             console.log(response.data)
             if (response.status === 200 && response.data.authorization_url) {
                 // Redirige al usuario a la URL de autorización de Google
+                console.log('Redirigiendo a la URL de autorización de Google:', response.data.authorization_url);
                 window.location.href = response.data.authorization_url;
             }
         } catch (error) {
@@ -75,15 +77,22 @@ const Auth = ({ onLogin }) => {
             <div className="auth-button-container">
                 <button className="auth-button" onClick={login}>Iniciar Sesión</button>
                 <button className="auth-button" onClick={register}>Registrarse</button>
+                <hr />
             </div>
             <button className="google-button" onClick={loginWithGoogle}>
-            <img
+                <img
                     className="google-icon"
                     src={require('../../styles/images/google.png')}
                     alt="Google"
                 />
                 Iniciar Sesión con Google
             </button>
+            <div className="auth-register">
+                    ¿No tienes una cuenta?{" "}
+                    <Link to="/register" style={{ textDecoration: 'none', color: 'black' }}>
+                        <b>Regístrate</b>
+                    </Link>
+            </div>
         </div>
     );
 }

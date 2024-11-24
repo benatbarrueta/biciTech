@@ -15,15 +15,38 @@ function App() {
 
   // Función para manejar la autenticación exitosa
   const handleLogin = () => {
+    console.log("ENTRO A HANDLE LOGIN");
     setIsAuthentificated(true);
    
     console.log("AUTHENTIFICATED:",isAuthenticated);
   };
+
+  const handleLogout = async () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        // Llamar al backend para invalidar el token
+        await fetch("http://localhost:8000/auth/logout", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        // Eliminar el token del almacenamiento local
+        localStorage.removeItem("token");
+
+        // Redirigir al usuario a la página de login
+        window.location.href = "/";
+    }
+};
+
   return (
     <Router>
       <div className="App">
         {/* Usar el componente Header */}
-        {isAuthenticated && <Header />}
+        {isAuthenticated && <Header onLogout={handleLogout} />}
 
         {/* Usar el componente Routes */}
         <Routes>

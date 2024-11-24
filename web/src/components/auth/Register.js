@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../../styles/Auth.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -55,7 +55,12 @@ const Register = () => {
                 <button className="auth-button" onClick={register}>Registrarse</button>
                 <br/>
                 <br/>
-                <a href="/" className="auth-link">Ya tienes una cuenta? Iniciar sesión</a>
+                <div className="auth-register">
+                    ¿Ya tienes una cuenta?{" "}
+                    <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+                        <b>Inicia Sesión</b>
+                    </Link>
+            </div>
             </div>
         </div>
     );

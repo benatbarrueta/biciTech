@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/Header.css';
-const Header = () => {
+const Header = ({onLogout}) => {
   return (
     <header className="header">
       <h1>Bici Tech</h1>
@@ -10,7 +10,9 @@ const Header = () => {
         <nav className="menu">
           <Link to="/favorites">Favoritos</Link>
           <Link to="/roads">Carriles</Link>
-          <Link to="/perfil">Perfil</Link>
+          <button onClick={onLogout} className="logout-button">
+            Cerrar sesión
+          </button>
         </nav>
       </div>
     </header>
