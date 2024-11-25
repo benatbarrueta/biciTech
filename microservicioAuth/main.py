@@ -8,19 +8,26 @@ from fastapi.responses import RedirectResponse
 from requests_oauthlib import OAuth2Session
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+import time
 import os
 from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-db = pymysql.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    db="bicitech",
-    charset="utf8mb4",
-    cursorclass=pymysql.cursors.DictCursor
-)
+while True:
+    try:
+        db = pymysql.connect(
+            host="mysql_db",  # Nombre del servicio MySQL en Docker Compose
+            user="my_user",
+            password="my_password",
+            database="my_database",
+            port=3306
+        )
+        print("Database connection successful!")
+        break
+    except pymysql.err.OperationalError as e:
+        print(f"Database not ready, retrying in 5 seconds... Error: {e}")
+        time.sleep(5)
 
 app = FastAPI(
     title="Authentication API",
@@ -260,4 +267,4 @@ async def check_favorite_road(
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
