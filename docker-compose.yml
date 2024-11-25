@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./web  # Carpeta del frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - proxy
+
+  microservicio_carriles:
+    build:
+      context: ./microservicioCarriles  # Carpeta de microservicioCarriles
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+
+  microservicio_meteo:
+    build:
+      context: ./microservicioMeteo  # Carpeta de microservicioMeteo
+      dockerfile: Dockerfile
+    ports:
+      - "2000:2000"
+
+  microservicio_auth:
+    build:
+      context: ./microservicioAuth  # Carpeta de microservicioAuth
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+
+  proxy:
+    build:
+      context: .  # El contexto está en la raíz del proyecto porque Gateway.js está ahí
+      dockerfile: Dockerfile  # Dockerfile en la raíz
+    ports:
+      - "4000:4000"
+    depends_on:
+      - microservicio_carriles
+      - microservicio_meteo
+      - microservicio_auth

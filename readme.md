@@ -110,3 +110,19 @@ The frontend of this project is a web application developed using React, a widel
 To run the project, simply execute the following command:
 
     npm start
+
+## DOCKER
+The aplication is using a docker file to start all in once.
+
+#### EXECUTION ▶
+If you want to build and start the services execute the following command:
+
+    docker-compose up --build
+
+If you want to stop the services execute the following command:
+
+    docker-compose down
+
+If you want to verify the containers that are in execution:
+
+    docker ps
