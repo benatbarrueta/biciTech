@@ -22,17 +22,14 @@ const GoogleCallback = ({ onLogin }) => {
 
             try {
                 // Realiza una solicitud al backend para obtener el token de acceso
-                console.log("Obteniendo token de acceso...");
                 const response = await axios.get(`/api/auth/google/callback?code=${code}`);
-                console.log("Respuesta del servidor:", response);
 
                 if (response.status === 200) {
-                    // Guarda el token y redirige al usuario
-                    console.log("Token de acceso obtenido:", response.data.access_token);
-                    console.log("AUTHENTICATED:", onLogin);
-                    setAuthToken(response.data.access_token);
+                    // Guarda el token y redirige al usuario a la página de inicio
+                    setAuthToken(response.data.access_token.access_token);
                     localStorage.setItem('token', response.data.access_token);
                     console.log("TOKEN:", response.data.access_token);
+                    
                     onLogin();
                     navigate('/home');
                     console.log("GOOGLE LOGIN SUCCESFULL.");

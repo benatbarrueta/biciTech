@@ -7,6 +7,7 @@ import { useToken } from './tokenContext';
 const Auth = ({ onLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
     const { setAuthToken } = useToken();
 
@@ -30,9 +31,15 @@ const Auth = ({ onLogin }) => {
                 onLogin();
                 navigate('/home');
                 console.log('INICIO DE SESIÓN EXITOSO', response.data);
+                setError('');
             }
         } catch (error) {
             console.error('Error de inicio de sesión:', error);
+            if (error.response && error.response.status === 401) {
+                setError('Usuario o contraseña incorrectos. Intentelo de nuevo.');
+            } else {
+                setError('Ocurrió un problema con el inicio de sesión. Intentelo de nuevo.');
+            }
         }
     };
 
@@ -56,6 +63,12 @@ const Auth = ({ onLogin }) => {
         }
     };
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            login();
+        }
+    };
+
     return (
         <div className="auth-container">
             <img src={require('../../styles/images/logo.png')} alt="Bici Tech" />
@@ -66,14 +79,19 @@ const Auth = ({ onLogin }) => {
                     placeholder="Usuario"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
                 <input
                     type="password"
                     placeholder="Contraseña"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
             </div>
+
+            {error && <div className="error-message">{error}</div>}
+
             <div className="auth-button-container">
                 <button className="auth-button" onClick={login}>Iniciar Sesión</button>
                 <button className="auth-button" onClick={register}>Registrarse</button>

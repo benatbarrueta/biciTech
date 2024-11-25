@@ -7,11 +7,9 @@ import { TokenProvider } from './components/auth/tokenContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <TokenProvider>
       <App />
     </TokenProvider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

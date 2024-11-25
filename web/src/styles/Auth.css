@@ -1,31 +1,3 @@
-.google-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
-  color: #5f6368;
-  border: 1px solid #dadce0;
-  margin-left: 10px; 
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s, box-shadow 0.3s;
-  width: 280px;
-  outline: none;
-}
-
-.google-button:hover {
-  background-color: #f7f8f9;
-  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 0 4px 8px rgba(60, 64, 67, 0.15);
-}
-
-.google-icon {
-  height: 25px;
-  width: 25px;
-  margin-right: 12px;
-}
-
 .main-title {
   text-align: center;
   /* Centrar el texto horizontalmente */
@@ -86,7 +58,7 @@ img {
   border: none;
   padding: 10px;
   margin-top: 10px;
-  font-size: 1em;
+  font-size: 14px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -94,6 +66,37 @@ img {
 
 .auth-button:hover {
   background-color: #555;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 0 4px 8px rgba(60, 64, 67, 0.15);
+  font-size: 15px;
+}
+
+.google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #5f6368;
+  border: 1px solid #dadce0;
+  margin-left: 10px; 
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  width: 280px;
+  outline: none;
+}
+
+.google-button:hover {
+  background-color: #f7f8f9;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 0 4px 8px rgba(60, 64, 67, 0.15);
+  font-size: 15px;
+}
+
+.google-icon {
+  height: 25px;
+  width: 25px;
+  margin-right: 12px;
 }
 
 .auth-link {
@@ -124,4 +127,10 @@ Link {
 
 Link:hover {
   text-decoration: underline;
+}
+
+.error-message{
+  color: red;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

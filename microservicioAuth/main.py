@@ -107,7 +107,7 @@ async def google_callback(code: str):
 
     # Generar un token JWT para el usuario
     jwt_token = create_jwt_token({"sub": user_info["email"]})
-    return {"access_token": token, "token_type": "bearer"}
+    return {"access_token": jwt_token, "token_type": "bearer"}
 
 # Ruta para generar el token JWT
 @app.post("/auth/token")

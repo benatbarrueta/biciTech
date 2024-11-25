@@ -15,9 +15,7 @@ function App() {
 
   // Función para manejar la autenticación exitosa
   const handleLogin = () => {
-    console.log("ENTRO A HANDLE LOGIN");
     setIsAuthentificated(true);
-   
     console.log("AUTHENTIFICATED:",isAuthenticated);
   };
 
