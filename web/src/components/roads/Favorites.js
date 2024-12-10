@@ -7,17 +7,23 @@ const Favorites = () => {
     const [favoriteRoads, setFavoriteRoads] = useState([]);
 
     useEffect(() => {
+        console.log('Getting favorite roads');
         axios.get('/api/auth/favorite-roads/all', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         })
             .then(response => {
-                const roadPromises = response.data.map(favorite =>
-                    axios.get(`/api/roads/id/${favorite.roadID}`)
-                        .then(res => res.data)
-                );
+                console.log('Favorite roads:', response.data);
+                const roadPromises = [];
 
+                for (const favorite of response.data) {
+                    const promise = axios.get(`/api/roads/id/${favorite[0]}`)
+                        .then(res => res.data);
+                        console.log('Road id:', favorite);
+                    roadPromises.push(promise);
+                }
+                console.log('Road promises:', response);
                 Promise.all(roadPromises)
                     .then(roads => {
                         setFavoriteRoads(roads);

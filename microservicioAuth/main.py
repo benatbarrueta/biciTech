@@ -14,20 +14,14 @@ from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-while True:
-    try:
-        db = pymysql.connect(
-            host="mysql_db",  # Nombre del servicio MySQL en Docker Compose
-            user="my_user",
-            password="my_password",
-            database="my_database",
-            port=3306
-        )
-        print("Database connection successful!")
-        break
-    except pymysql.err.OperationalError as e:
-        print(f"Database not ready, retrying in 5 seconds... Error: {e}")
-        time.sleep(5)
+
+db = pymysql.connect(
+    host="localhost",
+    user="root",
+    password="root",
+    database="bicitech",
+    port=3306
+)
 
 app = FastAPI(
     title="Authentication API",
@@ -128,11 +122,11 @@ async def generate_token(form_data: OAuth2PasswordRequestForm = Depends()):
     cursor.close()
 
     # Verificar si el usuario existe y si la contraseña es correcta
-    if not user or not verify_password(form_data.password, user["password"]):
+    if not user or not verify_password(form_data.password, user[3]):
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
 
     # Generar el token JWT
-    token = create_jwt_token({"sub": user["username"]})
+    token = create_jwt_token({"sub": user[2]})
     return {"access_token": token, "token_type": "bearer"}
 
 # Route to register a new user

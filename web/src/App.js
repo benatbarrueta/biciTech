@@ -52,9 +52,9 @@ function App() {
           <Route path="/auth/google/callback" element={<GoogleCallback onLogin={handleLogin} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={isAuthenticated ? <Home /> : <Navigate to="/" />} />
-          <Route path="/roads" element={<Roads />} />
-          <Route path="/roads/:roadID" element={<RoadDetail />} />
-          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/roads" element={isAuthenticated ? <Roads /> : <Navigate to="/"/>} />
+          <Route path="/roads/:roadID" element={isAuthenticated ? <RoadDetail /> : <Navigate to="/"/>} />
+          <Route path="/favorites" element={isAuthenticated ? <Favorites /> : <Navigate to="/"/>} />
         </Routes>
       </div>
     </Router>

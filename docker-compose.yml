@@ -45,8 +45,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: bicitech
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
     ports:
       - "3307:3306"
     volumes:
@@ -59,7 +57,7 @@ services:
       context: ./proxy  # El contexto está en la raíz del proyecto porque Gateway.js está ahí
       dockerfile: Dockerfile  # Dockerfile en la raíz
     ports:
-      - "4000:80"
+      - "4000:4000"
     depends_on:
       - microservicio_carriles
       - microservicio_meteo

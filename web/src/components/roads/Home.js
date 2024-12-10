@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../styles/Home.css';
+import { Link } from "react-router-dom";
 import logo from '../../styles/images/logo.png';
 
 const Home = () => (
@@ -19,6 +20,9 @@ const Home = () => (
         </h2>
       </article>
     </section>
+    <Link to={`/roads`} className="details-button">
+                Acceder a carriles
+    </Link>
   </main>
 );
 
