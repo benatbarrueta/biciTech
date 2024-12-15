@@ -20,7 +20,6 @@
     "config": "^3.3.12",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "microservicio_meteo": "file:",
     "mongo": "^0.1.0",
     "mongoose": "^8.7.2",
     "nodemon": "^3.1.7",
