@@ -23,7 +23,7 @@ To run the project, simply execute the following command:
     npm start
 
 #### DOCUMENTATION 📄
-If you want to see the documentation of the api you have to enter in this [link](http:localhost:8000/api-docs) after starting the server
+If you want to see the documentation of the api you have to enter in this [link](http:localhost:9000/api-docs) after starting the server
 
 ### 2. WEATHER MICROSERVICE 🌤️
 This microservice is developed in Node.js and is used to obtain the weather data for each bike lane. It communicates with the app with the OpenWeather API.
@@ -33,7 +33,7 @@ To run it, you need to download or clone the repository and have Node.js install
 
 You need to download the following dependencies:
 
-**axios, config, dotenv, express, mongo, mongoose, nodemon, openweather swagger-jsdoc, and swagger-ui-express**
+**axios, config, dotenv, express, mongo, mongoose, nodemon, openweather, swagger-jsdoc, and swagger-ui-express**
 
 To do this, run the following command:
 
@@ -48,7 +48,7 @@ To run the project, simply execute the following command:
 If you want to see the documentation of the api you have to enter in this [link](http:localhost:2000/api-docs) after starting the server
 
 ### 3. AUTHENTICATION MICROSERVICE 🪪
-This microservice is developed in Flask(Python) and is used to log in, register, get the data related with the user. All the dat ais saved in a mysql database.
+This microservice is developed in Flask(Python) and is used to log in, register, get the data related with the user and manage the favorite roads. All this data is saved in a mysql database.
 
 #### INSTALLATION ⚙️
 To run it, you need to download or clone the repository and have Python installed.
@@ -81,7 +81,10 @@ To run the project, simply execute the following command:
     
     uvicorn main:app --reload
 
-## GATEWAY
+#### DOCUMENTATION 📄
+If you want to see the documentation of the api you have to enter in this [link](http:localhost:8000/api-docs) after starting the server
+
+## GATEWAY/PROXY
 
 The gateway is the part of the app that redirects calls received from the frontend to the backend.
 
@@ -91,17 +94,17 @@ To run it, you need to download or clone the repository and have Node.js install
 
 You need to download the following dependencies:
 
-**axios, config, dotenv, express, mongo, mongoose, nodemon, and openweather**
+**http-proxy**
 
 To do this, run the following command:
 
-    npm install http-proxy
+    npm install
 
 #### EXECUTION ▶
 
 To run the project, simply execute the following command:
     
-    node gateway.js
+    npm start
 
 ## FRONTEND 🖥️ 
 The frontend of this project is a web application developed using React, a widely recognized JavaScript library for building interactive user interfaces and reusable components.
@@ -112,7 +115,7 @@ To run the project, simply execute the following command:
     npm start
 
 ## DOCKER
-The aplication is using a docker file to start all in once.
+The aplication is using a docker file to start all in once. (We don't know whw but all the DockerFiles and the docker-compose file are made in the correct form but it doesn't work, so the gateway works with localhost instead of the name of each container).
 
 #### EXECUTION ▶
 If you want to build and start the services execute the following command:
